@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
 import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -6,10 +6,9 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import { type Page } from "../types";
 
 interface FooterProps {
-  active: Page;
   onClick: (page: Page) => void;
 }
-export default function Footer({ active, onClick }: FooterProps) {
+export default function Footer({ onClick }: FooterProps) {
   return (
     <div>
       <div className="flex w-full">

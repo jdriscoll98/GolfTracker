@@ -27,10 +27,7 @@ const Home: NextPage = () => {
               {selectedPage === "log" && <ScoreLog />}
             </div>
 
-            <Footer
-              onClick={(page: Page) => setSelectedPage(page)}
-              active={selectedPage}
-            />
+            <Footer onClick={(page: Page) => setSelectedPage(page)} />
           </div>
         </div>
       </main>
