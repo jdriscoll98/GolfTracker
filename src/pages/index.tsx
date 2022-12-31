@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useState } from "react";
 import AddNewScore from "../components/AddNewScore";
@@ -6,9 +7,13 @@ import CurrentScore from "../components/CurrentScore";
 import Footer from "../components/Footer";
 import ScoreLog from "../components/ScoreLog";
 import { type Page } from "../types";
-
 const Home: NextPage = () => {
   const [selectedPage, setSelectedPage] = useState<Page>("current");
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <main>Loading...</main>;
+  }
   return (
     <>
       <Head>
@@ -18,17 +23,30 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-full flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#233329] to-[#63D471]">
         <div className="h-[85vh] w-[90vw] overflow-hidden rounded-lg bg-white p-8 shadow-lg sm:h-[30rem] sm:w-[30rem]">
-          <div className="flex h-full w-full flex-col justify-between gap-[1rem] sm:justify-evenly">
-            <h1 className="text-center text-4xl font-bold">Golf Tracker</h1>
+          {session ? (
+            <div>
+              <p>hi {session.user?.name}</p>
+              <div className="flex h-full w-full flex-col justify-between gap-[1rem] sm:justify-evenly">
+                <h1 className="text-center text-4xl font-bold">Golf Tracker</h1>
 
-            <div className="grow">
-              {selectedPage === "current" && <CurrentScore />}
-              {selectedPage === "add" && <AddNewScore />}
-              {selectedPage === "log" && <ScoreLog />}
+                <div className="grow">
+                  {selectedPage === "current" && <CurrentScore />}
+                  {selectedPage === "add" && <AddNewScore />}
+                  {selectedPage === "log" && <ScoreLog />}
+                </div>
+
+                <Footer onClick={(page: Page) => setSelectedPage(page)} />
+              </div>
+
+              <button onClick={() => signOut()}>Logout</button>
             </div>
-
-            <Footer onClick={(page: Page) => setSelectedPage(page)} />
-          </div>
+          ) : (
+            <div>
+              <button onClick={() => signIn("discord")}>
+                Login with Discord
+              </button>
+            </div>
+          )}
         </div>
       </main>
     </>

@@ -1,10 +1,21 @@
 import React from "react";
+import { trpc } from "../utils/trpc";
 
 export default function ScoreLog() {
+  const { data: messages, isLoading } = trpc.guestbook.getAll.useQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="flex flex-col gap-[1rem]">
         <h2 className="text-center text-3xl font-semibold">Score Log</h2>
+        {messages?.map((message) => (
+          <div key={message.name}>{message.message}</div>
+        ))}
+
         <div className="flex flex-col gap-[1rem]">
           <div className="flex justify-between gap-[1rem] text-2xl font-medium">
             <div className="grow">Round #</div>
