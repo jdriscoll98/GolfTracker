@@ -6,7 +6,7 @@ import { trpc } from "../utils/trpc";
 
 export default function ScoreLog() {
   const { data: scores, isLoading } = trpc.round.getAll.useQuery();
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const deleteScore = trpc.round.deleteScore.useMutation();
   if (isLoading) {
     return <div>Loading...</div>;
