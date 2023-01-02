@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
 import React from "react";
-import HomeIcon from "@mui/icons-material/Home";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { type Page } from "../types";
+import { Leaderboard } from "@mui/icons-material";
 
 interface FooterProps {
   onClick: (page: Page) => void;
@@ -20,7 +20,7 @@ export default function Footer({ onClick }: FooterProps) {
             onClick("current");
           }}
         >
-          <HomeIcon />
+          <Leaderboard />
         </Button>
         <Button
           aria-label="Add"
