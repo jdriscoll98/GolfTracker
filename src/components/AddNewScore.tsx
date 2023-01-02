@@ -59,7 +59,7 @@ export default function AddNewScore() {
           Add Score
         </Button>
       ) : (
-        <Button className="mx-auto" onClick={() => signIn("discord")}>
+        <Button className="mx-auto" onClick={() => signIn("google")}>
           Log in to add scores
         </Button>
       )}
